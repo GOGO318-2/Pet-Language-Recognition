@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PetMind - 智能宠物心理分析应用">
+    <title>PetMind - 宠物心理分析</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Firebase SDK v9+ -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        
+        // TODO: 请替换为您的Firebase配置
+        const firebaseConfig = {
+            apiKey: "AIzaSyBnwsgMmlbyvtXRp-FORZ8_klxBBVEenYE",
+            authDomain: "pet-language-recognition.firebaseapp.com",
+            projectId: "pet-language-recognition",
+            storageBucket: "pet-language-recognition.firebasestorage.app",
+            messagingSenderId: "831572117698",
+            appId: "1:831572117698:web:4a287a30efb4db4a35535b"
+        };
+        
+        // 初始化Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+        
+        // 将auth和provider暴露到全局，供app.js使用
+        window.firebaseAuth = auth;
+        window.firebaseProvider = provider;
+    </script>
+    
+    <!-- html2canvas库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">🐾 PetMind</h1>
+            <div class="user-section" id="userSection">
+                <!-- 未登录状态 -->
+                <button class="btn btn-primary" id="loginBtn">Google登录</button>
+                <!-- 已登录状态 -->
+                <div class="user-info" id="userInfo" style="display: none;">
+                    <img class="user-avatar" id="userAvatar" src="" alt="用户头像">
+                    <span class="user-name" id="userName"></span>
+                    <button class="btn btn-secondary" id="logoutBtn">退出</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要内容区域 -->
+    <main class="main">
+        <div class="container">
+            <!-- 未登录提示页面 -->
+            <section class="welcome-section" id="welcomeSection">
+                <div class="welcome-card">
+                    <h2>欢迎使用 PetMind</h2>
+                    <p>通过AI分析您的宠物照片，了解它们的心理状态</p>
+                    <p class="hint">请先使用Google账号登录</p>
+                </div>
+            </section>
+
+            <!-- 已登录后的功能页面 -->
+            <section class="app-section" id="appSection" style="display: none;">
+                <!-- 上传区域 -->
+                <div class="upload-card">
+                    <h2>上传宠物照片</h2>
+                    <div class="upload-area" id="uploadArea">
+                        <input type="file" id="fileInput" accept="image/*,video/*" style="display: none;">
+                        <div class="upload-placeholder">
+                            <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                            <p>点击或拖拽文件到此处上传</p>
+                            <p class="upload-hint">支持图片和视频格式</p>
+                        </div>
+                        <img id="previewImage" class="preview-image" style="display: none;" alt="预览">
+                        <video id="previewVideo" class="preview-video" style="display: none;" controls></video>
+                    </div>
+                    <div class="upload-actions">
+                        <button class="btn btn-primary" id="analyzeBtn" disabled>开始分析</button>
+                        <button class="btn btn-secondary" id="clearBtn" style="display: none;">清除</button>
+                    </div>
+                </div>
+
+                <!-- 加载状态 -->
+                <div class="loading-card" id="loadingCard" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>AI正在分析中，请稍候...</p>
+                </div>
+
+                <!-- 分析结果卡片 -->
+                <div class="result-card" id="resultCard" style="display: none;">
+                    <h2>分析结果</h2>
+                    <div class="result-content" id="resultContent"></div>
+                    <div class="result-actions">
+                        <button class="btn btn-primary" id="shareBtn">生成分享图</button>
+                        <button class="btn btn-secondary" id="newAnalysisBtn">新的分析</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">© 2024 PetMind. 使用AI技术分析宠物行为</p>
+            <!-- TODO: 在此处插入Google AdSense广告代码 -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9552218040190284"
+                crossorigin="anonymous"></script>
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                data-ad-slot="XXXXXXXXXX"
+                data-ad-format="auto"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            <p class="copyright">© 2024 PetMind. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- 主应用逻辑 -->
+    <script type="module" src="app.js"></script>
+</body>
+</html>
