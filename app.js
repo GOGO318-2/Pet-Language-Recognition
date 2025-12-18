@@ -2,7 +2,7 @@
 
 // TODO: 请替换为您的Gemini API密钥
 const GEMINI_API_KEY = 'AIzaSyA-cBJ0LURnlsxxAXLN-R-qav45a7sK2qM';
-const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent?key=${GEMINI_API_KEY}`;
+const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
 
 // 全局状态管理
 let currentFile = null;
