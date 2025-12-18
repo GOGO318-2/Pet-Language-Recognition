@@ -3,9 +3,8 @@
 // TODO: 请替换为您的Gemini API密钥
 // 注意：仅用于本地/测试环境，正式环境建议走后端代理，避免在前端暴露密钥
 const GEMINI_API_KEY = 'AIzaSyA-cBJ0LURnlsxxAXLN-R-qav45a7sK2qM';
-// 使用当前推荐的多模态模型：gemini-1.5-flash-latest，并使用 v1beta generateContent 接口
-const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`;
-
+// 使用当前推荐的多模态模型：gemini-1.5-flash（注意：v1beta 中不要带 -latest 后缀）
+const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
 
 // 全局状态管理
 let currentFile = null;
